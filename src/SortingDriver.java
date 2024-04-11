@@ -13,6 +13,8 @@ public class SortingDriver {
 
     public static void main(String[] args) {
 
+        System.out.println(args);
+
         while (menu) {
             System.out.println(
                     "selection-sort (s) merge-sort (m) heap-sort (h) quick-sort-first (q) quick-sort-random (r)");
@@ -26,16 +28,24 @@ public class SortingDriver {
         }
 
         try {
-            File input = new File("resources/ordered.txt");
-            Scanner fileRead = new Scanner(input);
 
-            int[] sorterArray = new int[10000];
-            int index = 0;
+            int[] sorterArray;
 
-            while (fileRead.hasNextInt() && index < sorterArray.length) {
-                sorterArray[index] = fileRead.nextInt();
-                index++;
-            } // while to add elements to the sorterArray
+            if (args.length > 0) {
+                File input = new File(args[0]);
+                Scanner fileRead = new Scanner(input);
+
+                sorterArray = new int[10000];
+                int index = 0;
+
+                while (fileRead.hasNextInt() && index < sorterArray.length) {
+                    sorterArray[index] = fileRead.nextInt();
+                    index++;
+                }
+                fileRead.close();
+            } else {
+                sorterArray = createRandomArray();
+            }
 
             Sorting sorter = new Sorting();
 
@@ -43,7 +53,7 @@ public class SortingDriver {
 
             switch (algorithm) {
                 case 's':
-                    sort = "sorter-sort";
+                    sort = "Selection-sort";
                     sorter.selectionSort(sorterArray);
                     break;
                 case 'm':
@@ -63,7 +73,6 @@ public class SortingDriver {
                     sorter.quickSortRandom(sorterArray, 0, sorterArray.length - 1);
                     break;
                 default:
-                    // Handle the case where algorithm is not any of the specified values
                     break;
             }
 
@@ -71,11 +80,25 @@ public class SortingDriver {
 
             System.out.println("#" + sort + " comparisons: " + sorter.getCompareCount());
 
-            fileRead.close();
         } catch (FileNotFoundException e) {
             System.out.println("Error when reading file!\nError Message: " + e.getMessage());
         } // try-catch
 
         INPUT.close();
+    }
+
+    public static int[] createRandomArray() {
+
+        System.out.print("Please enter the size of the array you wish to create: ");
+        int arraySize = INPUT.nextInt();
+
+        int[] randomArray = new int[arraySize];
+
+        Random r = new Random();
+
+        for (int i = 0; i < arraySize; i++) {
+            randomArray[i] = r.nextInt();
+        }
+        return randomArray;
     }
 }

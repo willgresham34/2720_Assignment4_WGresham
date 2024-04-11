@@ -29,47 +29,47 @@ public class SortingDriver {
             File input = new File("resources/ordered.txt");
             Scanner fileRead = new Scanner(input);
 
-            int[] selectionArray = new int[10000];
+            int[] sorterArray = new int[10000];
             int index = 0;
 
-            while (fileRead.hasNextInt() && index < selectionArray.length) {
-                selectionArray[index] = fileRead.nextInt();
+            while (fileRead.hasNextInt() && index < sorterArray.length) {
+                sorterArray[index] = fileRead.nextInt();
                 index++;
-            } // while to add elements to the selectionArray
+            } // while to add elements to the sorterArray
 
-            Sorting selection = new Sorting();
+            Sorting sorter = new Sorting();
 
             String sort = "";
 
             switch (algorithm) {
                 case 's':
-                    sort = "Selection-sort";
-                    selection.selectionSort(selectionArray);
+                    sort = "sorter-sort";
+                    sorter.selectionSort(sorterArray);
                     break;
                 case 'm':
                     sort = "Merge-sort";
-                    selection.mergeSort(selectionArray, 0, selectionArray.length - 1);
+                    sorter.mergeSort(sorterArray, 0, sorterArray.length - 1);
                     break;
                 case 'h':
                     sort = "Heap-sort";
-                    selection.heapSort(selectionArray);
+                    sorter.heapSort(sorterArray);
                     break;
                 case 'q':
                     sort = "Quick-sort-fp";
-                    selection.quickSortFirst(selectionArray, 0, selectionArray.length - 1);
+                    sorter.quickSortFirst(sorterArray, 0, sorterArray.length - 1);
                     break;
                 case 'r':
                     sort = "Quick-sort-rp";
-                    selection.quickSortRandom(selectionArray, 0, selectionArray.length - 1);
+                    sorter.quickSortRandom(sorterArray, 0, sorterArray.length - 1);
                     break;
                 default:
                     // Handle the case where algorithm is not any of the specified values
                     break;
             }
 
-            selection.printArray(selectionArray);
+            sorter.printArray(sorterArray);
 
-            System.out.println("#" + sort + " comparisons: " + selection.getCompareCount());
+            System.out.println("#" + sort + " comparisons: " + sorter.getCompareCount());
 
             fileRead.close();
         } catch (FileNotFoundException e) {

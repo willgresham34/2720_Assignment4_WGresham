@@ -104,7 +104,6 @@ class Sorting {
             arr[k] = L[i];
             i++;
             k++;
-            // compareCount++;
         }
 
         // Copy remaining elements of R[] if any
@@ -112,7 +111,6 @@ class Sorting {
             arr[k] = R[j];
             j++;
             k++;
-            // compareCount++;
         }
     }
 
@@ -164,7 +162,7 @@ class Sorting {
             int swap = arr[i];
             arr[i] = arr[largest];
             arr[largest] = swap;
-
+            compareCount++;
             // Recursively heapify the affected sub-tree
             heapify(arr, N, largest);
         }
@@ -181,8 +179,6 @@ class Sorting {
     public int partitionFirst(int arr[], int low, int high) {
         // First element as pivot
         int pivot = arr[low];
-        int st = low; // st points to the starting of array
-        int end = high; // end points to the ending of the array
         int k = high;
         for (int i = high; i > low; i--) {
             if (arr[i] > pivot) {
@@ -199,7 +195,7 @@ class Sorting {
     }
 
     // Function to swap two elements
-    public static void swap(int[] arr, int i, int j) {
+    public void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
@@ -221,7 +217,7 @@ class Sorting {
             // Separately sort elements before
             // partition and after partition
             quickSortFirst(arr, low, idx - 1);
-            quickSortFirst(arr, idx + 1, high);
+            quickSortFirst(arr, idx + 1, high); /* stack over flow error on this line */
         }
         compareCount++;
     }

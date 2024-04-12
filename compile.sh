@@ -1,3 +1,2 @@
 #!bin/bash
-javac -d bin Sorting.java
-javac -cp bin -d bin SortingDriver.java
+javac -d bin src/Sorting.java
